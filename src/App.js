@@ -1,9 +1,9 @@
-
+import Uploader from "./partials/Uploader";
 
 function App() {
   return (
     <div >
-      upload file
+      <Uploader />
     </div>
   );
 }

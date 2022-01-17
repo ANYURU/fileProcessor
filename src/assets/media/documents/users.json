@@ -1,0 +1,31 @@
+{
+    "users": [
+        {"uid": "43VicYM7zTNuF6jhKIdQcbJhUmv1", "email": "dsninternational@gmail.com", "name": "DSN ", "role": "customer"},
+        {"uid": "AjdLPL2tDQPz7pkQ33kAKY8BdXy1", "email": "nakimbugwe@gmail.com", "name": "Nakimbugwe", "role":"customer"},
+        {"uid": "Ao0uxPw0aGdPqt9QtcIA0CQptZU2", "email": "jescaahimibisibwe@gmail.com", "name": "Jesca Ahimbisibwe", "role": "supervisor", "meta": {}},
+        {"uid": "EAGSkR2PZIb6j7aCuFoupmzQzaJ3", "email": "nakatomartha@gmail.comm", "name": "Nakato Martha", "role":"", "meta": {}},
+        {"uid": "EMHTdMt86cgsqQuWSDRx4mPLCSK2", "email": "admin2@gmail.com", "name": "Admin Two", "role": "admin", "meta": {}},
+        {"uid": "FfbHAeiAQJbOMbEhhz96FCzP79h2", "email": "nakatoracheal@gmail.com", "name": "Nakato Racheal", "role": "Customer", "meta" : {}},
+        {"uid": "Lh9vrZ8QASXQhrUlcV7GgCKV5FL2", "email": "ahimbisibwejesca@gmail.com", "name": "Jesca Ahimbisibwe", "role": "supervisor", "meta": {}},
+        {"email": "admin3@gmail.com", "name": "Admin Three", "role": "admin", "meta": {}},
+        {"email": "charleskasasira01@gmail.com", "name": "Charles Kasasira", "role": "admin", "meta": {}},
+        {"email": "dsninternational`@gmail.com", "name": "DSN ", "role": "Customer", "meta": {}},
+        {"email": "admin1@gmail.com", "name": "Admin One", "role": "admin", "meta": {}},
+        {"email": "superivsor2@gmail.com", "name": "Supervisor Two", "role": "supervisor", "meta": {}},
+        {"email": null, "name": null, "role": {}, "meta": {}},
+        {"email": "joanitanakityo@gmail.com", "name": "Joanita Nakityo", "role": "Customer", "meta": {}},
+        {"email": "customer1@gmail.com", "name": "Customer One", "role": "Customer", "meta": {}},
+        {"email": "simonpeter@gmail.com", "name": "Simon Peter", "role": "Customer", "meta": {}},
+        {"email": "admin5@gmail.com", "name": "Admin Five", "role": "admin", "meta": {}},
+        {"email": "kabazzienterprizes@gmail.com", "name": "Kabazzi Enterprises", "role": "Customer", "meta": {}},
+        {"email": "tomjerry@gmail.com", "name": "Tom Jerry", "role": "Customer", "meta": {}},
+        {"email": "defaultsuperadmin@britam.com", "name": "Default Super Admin", "role": "superadmin", "meta": {}},
+        {"email": "testing.superadmin@britam.com", "name": "Testing Super Admin", "role": "superadmin", "meta": {}},
+        {"email": "defaultadmin@britam.com", "name": "Default Admin", "role": "admin", "meta": {}},
+        {"email": "oketchjames@gmail.com", "name": "Oketch James", "role": "Customer", "meta": {}},
+        {"email": "customer2@gmail.com", "name": "Customer Two", "role": "Customer", "meta": {}},
+        {"email": "banobajimmyjames@gmail.com", "name": "Banoba Jimmy James", "role": "Customer", "meta": {}},
+        {"email": "opiojustus@gmail.com", "name": "Opio Justus", "role": "Customer", "meta": {}},
+        {"email": "peterkasule@gmail.com", "name": "Peter Kasule", "role": "agent", "mtp": true, "meta": {}}
+    ]            
+}
