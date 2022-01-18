@@ -3,6 +3,14 @@ import { useState } from 'react'
 const Uploader =  () => {
     const [ json, setJson ] = useState()
 
+    const handleClick = ( id, importFileCallback ) => {
+        try {
+            importFileCallback(id)
+        } catch (error){ 
+            console.log(error)
+        }
+    }
+
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
      * @param {Object} requiredFields An array of fields that the user wants to extract from the file. Each element of the array should be a String and is case sensitive.
@@ -11,7 +19,7 @@ const Uploader =  () => {
      */
     const handleJSON = async (event, requiredFields = ["email", "name"], defaultFields={password:"changeit"}) =>  {
         const { users } = JSON.parse(event.target.result)
-        const cleanedFileContent = []
+        const data = []
 
         for(let i = 0; i < users.length; i++) {  
             const selectedFields = {...defaultFields}
@@ -19,11 +27,12 @@ const Uploader =  () => {
             requiredFields.forEach(requiredField => {
                 selectedFields[requiredField] = users[i][requiredField]
             })
-            cleanedFileContent.push(selectedFields)
-        }
-        return await cleanedFileContent  
-    }
 
+            data.push(selectedFields)
+        }
+        return await data
+    }
+    
 
 
     /**
@@ -56,7 +65,9 @@ const Uploader =  () => {
      * @returns {Object} JSON object that has an array of items, each containing the fields specified by the user.
      */
     const importFile = (importedElement) => {
+
         const importedFile = document.getElementById(importedElement).files[0]
+        
         const reader = new FileReader()
         const extension = importedFile.name.split('.').pop()
         
@@ -79,10 +90,9 @@ const Uploader =  () => {
 
     return (
         <div style={{display: "flex", gap:"20px"}}>
+            {/* Restricting the file uploader to accept files with .csv, .sql and .json file extensions.*/}
             <input id="imported-element"type="file" name="file" accept=".csv, .sql, .json"/>    
-            <button onClick={()=>{
-                importFile("imported-element")
-            }}>Upload </button>
+            <button onClick={() => handleClick("imported-element", importFile)}>Import</button>
             <button onClick={()=> {
                 console.log(json)
             }}>log data</button>
