@@ -7,18 +7,19 @@ const Uploader =  () => {
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
      * @returns {Object} An array of items, each containing the fields specified by the user.
      */
-    const handleJSON = async (event) =>  {
+    const handleJSON = async (event, requiredFields = ["email", "name"], defaultFields={password:"changeit"}) =>  {
         const { users } = JSON.parse(event.target.result)
-        console.log(users)
-
         const cleanedFileContent = []
+
         for(let i = 0; i < users.length; i++) {  
-            if(users[i]?.email && users[i]?.name) {
-                const { email, name, password="changeit"} = users[i]
-                cleanedFileContent.push({name: name, email: email, password: password})
-            } 
+            const selectedFields = {...defaultFields}
+            
+            requiredFields.forEach(requiredField => {
+                selectedFields[requiredField] = users[i][requiredField]
+            })
+            cleanedFileContent.push(selectedFields)
         }
-        return await cleanedFileContent    
+        return await cleanedFileContent  
     }
 
 
