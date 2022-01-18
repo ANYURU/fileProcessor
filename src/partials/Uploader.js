@@ -5,6 +5,8 @@ const Uploader =  () => {
 
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
+     * @param {Object} requiredFields An array of fields that the user wants to extract from the file. Each element of the array should be a String and is case sensitive.
+     * @param {Object} defaultFields An object containing a key and value of default fields.
      * @returns {Object} An array of items, each containing the fields specified by the user.
      */
     const handleJSON = async (event, requiredFields = ["email", "name"], defaultFields={password:"changeit"}) =>  {
@@ -26,7 +28,9 @@ const Uploader =  () => {
 
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
-     * @returns {Array} An array of items, each containing the fields specified by the user.
+     * @param {Object} requiredFields An array of fields that the user wants to extract from the file. Each element of the array should be a string and is case sensitive.
+     * @param {Object} defaultFields An object containing a key and value of default fields.
+     * @returns {Object} An array of items, each containing the fields specified by the user.
      */
 
     const handleCsv = async (event, requiredFields = ["Login email", "First name", "One-time password"], defaultFields={}) => {
