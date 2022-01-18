@@ -5,7 +5,7 @@ const Uploader =  () => {
 
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
-     * @returns {Object} JSON object that has an array of items, each containing the fields specified by the user.
+     * @returns {Object} An array of items, each containing the fields specified by the user.
      */
     const handleJSON = async (event) =>  {
         const { users } = JSON.parse(event.target.result)
@@ -25,23 +25,28 @@ const Uploader =  () => {
 
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
-     * @returns {Object} JSON object that has an array of items, each containing the fields specified by the user.
+     * @returns {Array} An array of items, each containing the fields specified by the user.
      */
 
-    const handleCsv = async (event) => {
+    const handleCsv = async (event, requiredFields = ["Login email", "First name", "One-time password"], defaultFields={}) => {
         const rows = event.target.result.split("\n")
         let fields = rows[0].split(";")
         const users  = []
-        let emailIndex=fields.indexOf("Login email"), passwordIndex=fields.indexOf("One-time password"), firstNameIndex= fields.indexOf("First name"), lastNameIndex=fields.indexOf("Last name")
+        const fieldPositions = {}
+        
+        requiredFields.forEach(requiredField => fieldPositions[requiredField] = fields.indexOf(requiredField))
+        // let emailIndex=fields.indexOf("Login email"), passwordIndex=fields.indexOf("One-time password"), firstNameIndex= fields.indexOf("First name"), lastNameIndex=fields.indexOf("Last name")
     
         for(let i = 1; i < rows.length; i++){
             const row = rows[i].split(";")
-            users.push({name: `${row[firstNameIndex]} ${row[lastNameIndex]}`, email:row[emailIndex], password:row[passwordIndex]})
+            const selectedFields = {...defaultFields}
+            requiredFields.forEach((requiredField) => selectedFields[requiredField] = row[fieldPositions[requiredField]])
+            users.push(selectedFields)
         }
-        return await users  
+        return await users
     }
 
-    
+
     /**
      * @param {String} importedElement The id of the element where the user selects the element
      * @returns {Object} JSON object that has an array of items, each containing the fields specified by the user.
