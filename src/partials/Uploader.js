@@ -2,10 +2,18 @@ import { useState } from 'react'
 
 const Uploader =  () => {
     const [ json, setJson ] = useState()
+    const [ status, setStatus ] = useState()
+    const [ text, setText ] = useState()
 
     const handleClick = ( id, importFileCallback ) => {
         try {
-            importFileCallback(id)
+            const feedback = importFileCallback(id)
+            if(feedback?.message === null) {
+                setText("No file has been Selected") 
+            } 
+            else {
+                setText(feedback.message)
+            } 
         } catch (error){ 
             console.log(error)
         }
@@ -42,7 +50,7 @@ const Uploader =  () => {
      * @returns {Object} An array of items, each containing the fields specified by the user.
      */
 
-    const handleCsv = async (event, requiredFields = ["Login email", "First name", "One-time password"], defaultFields={}) => {
+     const handleCsv = async (event, requiredFields = ["Login email", "First name", "One-time password"], defaultFields={}) => {
         const rows = event.target.result.split("\n")
         let fields = rows[0].split(";")
         const users  = []
@@ -67,24 +75,33 @@ const Uploader =  () => {
     const importFile = (importedElement) => {
 
         const importedFile = document.getElementById(importedElement).files[0]
-        
-        const reader = new FileReader()
-        const extension = importedFile.name.split('.').pop()
-        
-        reader.onload = async function(event) {
-            if(extension === 'csv') {
-                setJson(await handleCsv(event))
-            }
+        if(importedFile) {
 
-            if(extension === 'json') {
-                setJson(await handleJSON(event))
+            const reader = new FileReader()
+            const extension = importedFile.name.split('.').pop()
+            const filename = importedFile.name
+            
+            reader.onload = async function(event) {
+                if(extension === 'csv') {
+                    setJson(await handleCsv(event))
+                }
+    
+                if(extension === 'json') {
+                    setJson(await handleJSON(event))
+                }
             }
+            
+            reader.readAsText(importedFile)
+            console.log(importedFile.name.split('.').pop())
+            console.log(importedFile.type)
+            console.log(json)   
+            setStatus(true)
+            return {message: `${filename} has been selected.`}
         }
-        
-        reader.readAsText(importedFile)
-        console.log(importedFile.name.split('.').pop())
-        console.log(importedFile.type)
-        console.log(json)    
+
+        setText("No File Selected")
+        setStatus(true)
+        return {message: null}   
     }
 
 
@@ -96,6 +113,9 @@ const Uploader =  () => {
             <button onClick={()=> {
                 console.log(json)
             }}>log data</button>
+            {
+                status === true ? <div>{text}</div> : <div></div>  
+            }
 
         </div>
     )
