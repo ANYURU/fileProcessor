@@ -1,10 +1,13 @@
 import { useState } from 'react'
 
+
 const Uploader =  () => {
     const [ json, setJson ] = useState()
     const [ status, setStatus ] = useState()
     const [ text, setText ] = useState()
     const [ selected, setSelected ] = useState()
+    
+    
     const handleClick = ( id, importFileCallback ) => {
         try {
             const feedback = importFileCallback(id)
@@ -18,6 +21,8 @@ const Uploader =  () => {
             console.log(error)
         }
     }
+
+    
 
     /**
      * @param {Object} event An event triggered by the onClick event handler of the upload button element.
