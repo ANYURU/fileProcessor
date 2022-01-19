@@ -4,12 +4,12 @@ const Uploader =  () => {
     const [ json, setJson ] = useState()
     const [ status, setStatus ] = useState()
     const [ text, setText ] = useState()
-
+    const [ selected, setSelected ] = useState()
     const handleClick = ( id, importFileCallback ) => {
         try {
             const feedback = importFileCallback(id)
             if(feedback?.message === null) {
-                setText("No file has been Selected") 
+                setText("No file has been selected") 
             } 
             else {
                 setText(feedback.message)
@@ -96,7 +96,7 @@ const Uploader =  () => {
             console.log(importedFile.type)
             console.log(json)   
             setStatus(true)
-            return {message: `${filename} has been selected.`}
+            return {message: `${filename} has successfully been imported.`}
         }
 
         setText("No File Selected")
@@ -108,15 +108,28 @@ const Uploader =  () => {
     return (
         <div style={{display: "flex", gap:"20px"}}>
             {/* Restricting the file uploader to accept files with .csv, .sql and .json file extensions.*/}
-            <input id="imported-element"type="file" name="file" accept=".csv, .sql, .json"/>    
-            <button onClick={() => handleClick("imported-element", importFile)}>Import</button>
+            <input id="imported-element"type="file" name="file" accept=".csv, .sql, .json" onChange={event => {
+                const reader = new FileReader()
+                const selectedFile = document.getElementById(event.target.id).files[0]
+                reader.readAsText(selectedFile)
+                setText(`${selectedFile.name} has been selected.`)
+                setSelected(true)
+            }}/>    
+            <button onClick={() => {
+                handleClick("imported-element", importFile)
+                setSelected(false)
+            }}>Import</button>
             <button onClick={()=> {
                 console.log(json)
             }}>log data</button>
+        
             {
-                status === true ? <div>{text}</div> : <div></div>  
+                selected === true && <div>{text}</div>     
             }
-
+            {
+                status === true && <div>{text}</div>  
+            }
+            
         </div>
     )
 }
