@@ -55,16 +55,20 @@ const Uploader =  () => {
      * @returns {Object} An array of items, each containing the fields specified by the user.
      */
 
-     const handleCsv = async (event, requiredFields = ["Login email", "First name", "One-time password"], defaultFields={}) => {
+     const handleCsv = async (event, requiredFields = ["name", "email"], defaultFields={password:"changeit"}) => {
         const rows = event.target.result.split("\n")
-        let fields = rows[0].split(";")
+        console.log(rows)
+        let fields = rows[0].split(",")
+        let newFields = fields.map(field => field.substring(1, field.length - 1))
+        console.log(newFields)
+
         const users  = []
         const fieldPositions = {}
         
-        requiredFields.forEach(requiredField => fieldPositions[requiredField] = fields.indexOf(requiredField))
+        requiredFields.forEach(requiredField => fieldPositions[requiredField] = newFields.indexOf(requiredField))
     
         for(let i = 1; i < rows.length; i++){
-            const row = rows[i].split(";")
+            const row = rows[i].split(",").map(field => field.substring(1, field.length - 1))
             const selectedFields = {...defaultFields}
             requiredFields.forEach((requiredField) => selectedFields[requiredField] = row[fieldPositions[requiredField]])
             users.push(selectedFields)
